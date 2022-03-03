@@ -1,0 +1,31 @@
+import pandas as pd
+df = pd.read_csv("01.2022.csv")
+costmatrix = pd.read_csv('CostMatrix.csv')
+costmatrix=costmatrix.rename(columns ={'Subscription':'Subscription_Name'})
+df.columns=df.columns.str.replace(" ","_")
+
+#change the exchange rate 
+df['Exchange_Rate'] = 1.840356
+df['USD']=(df['ExtendedCost']*1.840356)
+
+df = df.fillna('')
+#df['Month #'] = '1'
+#df["Month text"] = "Jan"
+#df["Year"] = "2022"
+#df["Quarter"] = "Q1"
+#df["ID"] = "Spend"
+
+df = pd.merge(df, costmatrix, how = 'left', on='Subscription_Name')
+pivot = df.pivot_table(values = ["Consumed_Quantity","ExtendedCost","USD"],index=["Subscription_Name","Account_Name","Meter_Region","Resource_Location","Product","Meter_Category","Unit_Of_Measure","Month"], aggfunc='sum')
+pivot.to_excel("pivoted.xlsx",merge_cells=False)
+df2 = pd.read_excel("pivoted.xlsx")
+df2 = pd.merge(df2, costmatrix, how='left', on ="Subscription_Name")
+#Check USD
+#df2["USD"].sum()
+df2['Month #'] = '1'
+df2["Month text"] = "Jan"
+df2["Year"] = "2022"
+df2["Quarter"] = "Q1"
+df2["ID"] = "Spend"
+df2 = df2[["Subscription_Name","Account_Name","Meter_Region","Resource_Location","Product","Meter_Category","Unit_Of_Measure","Month","Consumed_Quantity","ExtendedCost","USD","Cost Type","Account","Month text","Year","Month #","ID","Product Line","Quarter"]]
+df2.to_excel("FinalJan.xlsx")
