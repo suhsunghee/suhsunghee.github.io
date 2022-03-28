@@ -1,1 +1,4 @@
-This is a monthly cost project
+Project Description: 
+Extract monthly charges of Azure usage
+Transform raw data using python
+Loading to Tableau for final visualization 
