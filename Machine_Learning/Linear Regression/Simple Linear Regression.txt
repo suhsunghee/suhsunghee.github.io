@@ -1,0 +1,2 @@
+
+This linear regression model predicts salary for an employee based on their experience
