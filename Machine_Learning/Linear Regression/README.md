@@ -1,6 +1,5 @@
-﻿##**Linear regression projects** 
-
-#**Salary prediction based on experience year** 
+﻿**Linear regression projects** 
+**Salary prediction based on experience year** 
 
 Simple linear regression model that predicts salary for an employee based on their experience. 
 
