@@ -1,12 +1,13 @@
-﻿|<h3>**This is a read me test hahahaha**</h3>|
-| :- |
-### Haahaha
+# **Linear regression projects:** 
 
-**This is a mark**
+## **Salary prediction based on experience year** 
+Simple linear regression model that predicts salary for an employee based on their experience. 
 
-|**A**|**Bb v**|**c**|
-| :- | :- | :- |
-||||
-||||
-||||
-` `**down toolkit**
+**Overview**
+
+Sample dataset of employees’ numbers of working experience in years and their salaries. Using linear regression, raw data has been plotted with linear regression plot. 
+
+**Skills needed** 
+
+Python, Pandas, Numpy, Matplotlib, sklearn
+
