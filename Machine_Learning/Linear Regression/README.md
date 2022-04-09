@@ -1,4 +1,4 @@
-# **Linear regression projects:** 
+**Linear regression projects:** 
 
 ## **Salary prediction based on experience year** 
 Simple linear regression model that predicts salary for an employee based on their experience. 
@@ -10,4 +10,3 @@ Sample dataset of employees’ numbers of working experience in years and their 
 **Skills needed** 
 
 Python, Pandas, Numpy, Matplotlib, sklearn
-
