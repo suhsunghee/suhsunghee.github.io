@@ -1,14 +1,14 @@
-﻿**Python Data Processing:** 
+﻿**Linear regression projects** 
 
-# **Monthly Cost Report processing** 
+# **Salary prediction based on experience year ** 
+Simple linear regression model that predicts salary for an employee based on their experience. 
 
 **Overview**
 
-Monthly Spend report for broad viewers.
-Tracks monthly cost orginated from different areas, and show the overall summary of the cost data.
+Sample dataset of employees’ numbers of working experience in years and their salaries. Using linear regression, raw data has been plotted with linear regression plot. 
 
 
-**Skills needed** 
+**Skills used** 
 
-Python, Pandas, Tableau
+Python, Pandas, Numpy, Matplotlib, sklearn
 
