@@ -8,3 +8,12 @@ Tracks monthly cost orginated from different areas, and show the overall summary
 
 #### **Skills needed** 
 Python, Pandas, Tableau
+
+## [**2.Collecting Weekly Report**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/2.Collecting%20Weekly%20Report)
+
+#### **Overview**
+<p>Appending weekly reports into master report to access changes in weekly report <br>
+Week 10 - Week 14 Data are extracted from different sources and combined to one master file<br></p>
+
+#### **Skills needed** 
+Python, Pandas, Tableau
