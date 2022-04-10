@@ -1,12 +1,10 @@
-﻿**Python Data Processing & Tableau Visualization:** 
+﻿### **Python Data Processing & Tableau Visualization:**
 
-# **1.Monthly Cost Report processing** 
+## [**1.Monthly Cost Report processing**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/1.Monthly%20Cost%20Report)
 
 **Overview**
-Monthly Spend report for broad viewers.
-
-Tracks monthly cost orginated from different areas, and show the overall summary of the cost data.
-
-**Skills needed** 
-Python, Pandas, Tableau
+<p>Monthly Spend report for broad viewers.<br>
+Tracks monthly cost orginated from different areas, and show the overall summary of the cost data.<br>
+**Skills needed** <br>
+Python, Pandas, Tableau</p>
 
