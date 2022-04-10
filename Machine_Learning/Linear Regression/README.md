@@ -1,4 +1,4 @@
-﻿## **Linear regression projects**
+﻿## Linear regression projects
 
 
 ## **1.Salary prediction based on experience year**
