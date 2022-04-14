@@ -17,3 +17,12 @@ Week 10 - Week 14 Data are extracted from different sources and combined to one 
 
 #### **Skills needed** 
 Python, Pandas, Tableau
+
+## [**3.Fortune 1000 Companies**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/3.Fortune1000%20Companies%20Group%20by)
+
+#### **Overview**
+<p>Fortune1000 companies are grouped by different sectors <br>
+Data objects with group by and analyzing max profit, gross profit per sector/industry<br></p>
+
+#### **Skills needed** 
+Python, Pandas
