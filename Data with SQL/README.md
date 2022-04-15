@@ -20,3 +20,14 @@ certain customer groups. Then the data is combined for further visualization  <b
 
 #### **Skills needed** 
 SQL, Tableau
+
+
+## [**3.Inspecting and Modifying Producer Data**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/Produce-Modifying%20and%20inspecting%20data)
+
+#### **Overview**
+<p>This section uses meat,poultry and egg producer data to test quality of the dataset and modify as needed<br>
+Data is inspected to find missing states value, incorrect zip numerical digits and patterns are explored for 
+incorrect data to deduce incorrect zipcodes are limited to certain states.  <br></p>
+
+#### **Skills needed** 
+SQL
