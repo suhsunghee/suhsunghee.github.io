@@ -26,3 +26,15 @@ Data objects with group by and analyzing max profit, gross profit per sector/ind
 
 #### **Skills needed** 
 Python, Pandas
+
+
+## [**4.Food Orders- Combining data**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/4.Food%20Orders-%20Combining%20data)
+
+#### **Overview**
+<p>Customer order data and price data are combined together with different merge methods <br>
+2 Weeks of customer order datasets are concatnated to generate overview of order report
+Also then joined to see different insights such as which customers have multiple visits over the 2 weeks.
+Merge method has been used in different ways to provide unique insights<br></p>
+
+#### **Skills needed** 
+Python, Pandas
