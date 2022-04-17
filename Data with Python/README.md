@@ -38,3 +38,15 @@ Merge method has been used in different ways to provide unique insights<br></p>
 
 #### **Skills needed** 
 Python, Pandas
+
+
+## [**5.Spotify Playlist**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/5.Spotify%20Playlist)
+
+#### **Overview**
+<p>Spotify playlist data has extracted and explored <br>
+Spotify playlist data contains information about the artists, played duration, genre and more such as loudness and popularity 
+Data has been explored through heat map, scatter plots and histogram.
+<br></p>
+
+#### **Skills needed** 
+Python, Pandas, Numpy, matplotlib and seaborn
