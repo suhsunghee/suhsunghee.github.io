@@ -50,3 +50,13 @@ Data has been explored through heat map, scatter plots and histogram.
 
 #### **Skills needed** 
 Python, Pandas, Numpy, matplotlib and seaborn
+
+## [**6.Absentieesm data process to MySQL**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/6.Absentieesm%20data%20process%20to%20MySQL)
+
+#### **Overview**
+<p>Reasons for absentieesm for employees have been categorized using dummy variables and then re-mapped to original data for further analysis using a regression model. 
+Then the model has been applied to the transformed data to be excuted in MySQL<br>
+<br></p>
+
+#### **Skills needed** 
+Python, Pandas, scikit-learn, MySQL
