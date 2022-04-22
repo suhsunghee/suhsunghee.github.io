@@ -60,3 +60,14 @@ Then the model has been applied to the transformed data to be excuted in MySQL<b
 
 #### **Skills needed** 
 Python, Pandas, scikit-learn, MySQL
+
+
+## [**7. New York City Popular Baby Names**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/7.New%20York%20City%20baby%20names%20(in%20progress))
+
+#### **Overview**
+<p>Popular Baby Names by Sex and Ethnic Group. 
+Data were collected through civil birth registration. Each record represents the ranking of a baby name in the order of frequency. Data can be used to represent the popularity of a name. <br>
+<br></p>
+
+#### **Skills needed** 
+Python, Pandas, Matplotlib, Seaborn
