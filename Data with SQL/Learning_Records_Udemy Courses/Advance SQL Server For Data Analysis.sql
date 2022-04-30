@@ -165,3 +165,58 @@ FROM (
 ) X
 
 WHERE PurchaseOrderRank <= 3
+
+
+-- Combining WINDOW fuction and subqueries
+-- Return MaxRatio column to show percentage of employee vacation time compared to the max vacation hours
+-- Using subquery to refine the data to filter out any employees whoes vacation hours are less than 80% of
+-- the maximum amount of vacation hours.
+
+SELECT 
+
+[BusinessEntityID],
+[JobTitle],
+[VacationHours],
+[MaxVacationHours] = MAX([VacationHours]) OVER(PARTITION BY [BusinessEntityID] ORDER BY [VacationHours]),
+[Maxratio] = (MAX([VacationHours]) OVER(PARTITION BY [BusinessEntityID] ORDER BY [VacationHours]))*1.0/
+(SELECT MAX([VacationHours]) FROM AdventureWorks2019.HumanResources.Employee)
+FROM 
+AdventureWorks2019.HumanResources.Employee
+
+WHERE 
+0.8 < (SELECT MAX([VacationHours]) OVER(PARTITION BY [BusinessEntityID] ORDER BY [VacationHours]))*1.0/
+(SELECT MAX([VacationHours]) FROM AdventureWorks2019.HumanResources.Employee)
+
+-- Correlated subqueries
+-- Using Correlated Subqueries to return count of purchase record that has not been rejected
+-- Using Correlated Subqueries to return the max unit price for a given purchase order ID 
+
+
+SELECT 
+PurchaseOrderID,
+VendorID,
+OrderDate,
+TotalDue,
+MostExpensiveItem = 
+
+(SELECT 
+MAX(B.UnitPrice) 
+FROM Purchasing.PurchaseOrderDetail B 
+WHERE
+A.PurchaseOrderID = B.PurchaseOrderID 
+) ,
+
+NonRejectedItems = 
+(
+SELECT 
+COUNT(*)
+FROM 
+Purchasing.PurchaseOrderDetail B
+WHERE
+A.PurchaseOrderID = B.PurchaseOrderID 
+AND 
+B.RejectedQty = 0
+)
+
+FROM Purchasing.PurchaseOrderHeader A
+
