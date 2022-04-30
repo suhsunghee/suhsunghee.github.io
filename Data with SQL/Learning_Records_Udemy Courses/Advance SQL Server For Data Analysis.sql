@@ -102,6 +102,31 @@ FROM Sales.SalesOrderHeader
 ORDER BY [SalesOrderID]
 
 
+-- LAG function to show previous total due from the same vendors for each orderdate
+-- LEAD function to show next vendor names processed by each employee 
+
+SELECT 
+	   PurchaseOrderID
+      ,OrderDate
+      ,TotalDue
+	  ,VendorName = B.Name
+	  ,PrevOrderFromVendorAmt = LAG(A.TotalDue) OVER(PARTITION BY A.VendorID ORDER BY A.OrderDate)
+	  ,NextOrderByEmployeeVendor = LEAD(B.Name) OVER(PARTITION BY A.EmployeeID ORDER BY A.OrderDate)
+
+  FROM AdventureWorks2019.Purchasing.PurchaseOrderHeader A
+  JOIN AdventureWorks2019.Purchasing.Vendor B
+    ON A.VendorID = B.BusinessEntityID
+
+  WHERE YEAR(A.OrderDate) >= 2013
+	AND A.TotalDue > 500
+
+  ORDER BY 
+  A.EmployeeID,
+  A.OrderDate
+
+
+
+
 -- Combining partition by with LEAD & LAG function to group the result by customers
 
 SELECT 
@@ -114,3 +139,29 @@ SELECT
 FROM Sales.SalesOrderHeader
 ORDER BY [CustomerID], [SalesOrderID]
 
+
+-- Using DENSE_RANK() with subquery to bring back only resuts that are top 3 total due per vendor 
+
+
+SELECT
+	PurchaseOrderID,
+	VendorID,
+	OrderDate,
+	TaxAmt,
+	Freight,
+	TotalDue
+
+FROM (
+	SELECT 
+		PurchaseOrderID,
+		VendorID,
+		OrderDate,
+		TaxAmt,
+		Freight,
+		TotalDue,
+		PurchaseOrderRank = DENSE_RANK() OVER(PARTITION BY VendorID ORDER BY TotalDue DESC)
+
+	FROM AdventureWorks2019.Purchasing.PurchaseOrderHeader
+) X
+
+WHERE PurchaseOrderRank <= 3
