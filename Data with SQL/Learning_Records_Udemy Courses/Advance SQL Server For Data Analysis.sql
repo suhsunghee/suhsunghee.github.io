@@ -27,6 +27,7 @@ SELECT [BusinessEntityID]
 -- Applying different ranking methods
 -- Using RANK function we can avoid the same values ranked differently (ties ranked the same)
 
+--Defining Rank Per Sales OrderID, 
 SELECT
 [SalesOrderID],
 [SalesOrderDetailID],
@@ -37,6 +38,36 @@ RankingWithDense_Rank = DENSE_RANK() OVER(PARTITION BY SalesOrderID ORDER BY [Li
 FROM Sales.SalesOrderDetail
 
 ORDER BY SalesOrderID
+
+
+-- Defining RANK Per Product Category 
+SELECT 
+  ProductName = A.Name,
+  A.ListPrice,
+  ProductSubcategory = B.Name,
+  ProductCategory = C.Name,
+  [Price Rank] = ROW_NUMBER() OVER(ORDER BY A.ListPrice DESC),
+  [Category Price Rank] = ROW_NUMBER() OVER(PARTITION BY C.Name ORDER BY A.ListPrice DESC),
+  [Category Price Rank With Rank] = RANK() OVER(PARTITION BY C.Name ORDER BY A.ListPrice DESC),
+  [Category Price Rank With Dense Rank] = DENSE_RANK() OVER(PARTITION BY C.Name ORDER BY A.ListPrice DESC),
+  [Top 5 Price In Category] = 
+	CASE 
+		WHEN DENSE_RANK() OVER(PARTITION BY C.Name ORDER BY A.ListPrice DESC) <= 5 THEN 'Yes'
+		ELSE 'No'
+	END
+
+
+  FROM AdventureWorks2019.Production.Product A
+  JOIN AdventureWorks2019.Production.ProductSubcategory B
+  ON A.ProductSubcategoryID = B.ProductSubcategoryID
+  JOIN AdventureWorks2019.Production.ProductCategory C
+  ON B.ProductCategoryID = C.ProductCategoryID
+
+
+
+
+
+
 
 -- Using the ROW_NUMBER result as a subquery to select all sales order lines that has rank 1
 
