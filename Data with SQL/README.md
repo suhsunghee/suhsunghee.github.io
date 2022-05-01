@@ -3,8 +3,8 @@
 ## [**1.FBI Crime Data 2015 (Updates In progress)**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/1.FBI%20Crime%20data%202015)
 
 #### **Overview**
-<p> 2015 Demographic data from Census and FBI Crime data 2015 have been aquired from different sources to analyze crime types and geographic/demographic relationship.
-Updates are currently in progress
+<p> 2015 Demographic data from Census and FBI Crime data 2015 have been obatined to analyze crime types and geographic/demographic relationship.
+After combining demographic data and crime data per state, the analysis shows that there is no direct correlations between male population density and crime rate.
 <br></p>
 
 #### **Skills needed** 
