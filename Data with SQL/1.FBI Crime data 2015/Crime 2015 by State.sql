@@ -62,6 +62,46 @@ SELECT NAME,sex_m, racem, AGE,POPESTIMATE2015
 FROM popchar
 
 
+
+--Exploring male ratio per state 
+--For each state, get male population ratio ( Male population / Total Population ) 
+
+SELECT 
+
+one.state,
+Total_Population,
+MalePopulation,
+MaleRatio = MalePopulation*0.1/Total_Population,
+MaleRatioRank =  RANK() OVER(ORDER BY MalePopulation*0.1/Total_Population DESC) 
+FROM 
+( 
+
+SELECT 
+state, 
+Total_Population = SUM(population) 
+FROM popchar_2015
+WHERE gender != 'Total'
+GROUP BY state) 
+
+AS one 
+JOIN 
+(
+SELECT 
+state,
+MalePopulation = SUM(population) 
+FROM popchar_2015
+WHERE gender = 'MALE'
+GROUP BY state) 
+
+AS two
+on one.state = two.state 
+
+ORDER BY MaleRatio	DESC
+
+
+
+
+
 -- Explore data by crime counts 
 
 SELECT st, (SUM(violent_crime+property_crime+burglary+larceny_theft+motor_vehicle_theft)) AS TotalCrime FROM crimedata
@@ -120,3 +160,27 @@ SUM([motor_vehicle_theft])as t_VehicleTheft
 
 FROM crimedata 
 GROUP BY st
+
+
+-- Exploring cleaned Crime_data
+-- Total Crime ratio per state has been calculated to be # of crimes / # population 
+-- Applying RANK Function on each criminal cateogry 
+
+
+SELECT 
+
+state,
+CrimeRatio = (SUM(t_ViolentCrime+t_PropertyCrime+t_burglary+t_LarcenyTheft+t_VehicleTheft)*0.1/ SUM(t_pop)),
+ViolentCrimeRank = RANK() OVER(ORDER BY (SUM(t_ViolentCrime)*0.1 / SUM(t_pop)) DESC),
+PropertyCrimeRank = RANK() OVER(ORDER BY (SUM(t_PropertyCrime)*0.1 / SUM(t_pop)) DESC),
+BurglaryRank = RANK() OVER(ORDER BY (SUM(t_burglary)*0.1 / SUM(t_pop)) DESC),
+LarcenyTheftRank = RANK() OVER(ORDER BY (SUM(t_LarcenyTheft)*0.1 / SUM(t_pop)) DESC),
+VehicleTheftRank = RANK() OVER(ORDER BY (SUM(t_VehicleTheft)*0.1 / SUM(t_pop)) DESC)
+
+
+FROM crime_state 
+
+GROUP BY state
+
+
+
