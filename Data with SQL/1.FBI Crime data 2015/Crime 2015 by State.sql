@@ -188,7 +188,7 @@ GROUP BY state
 
 SELECT 
 
-crimetable.state
+crimetable.state,
 CrimeRatio,
 ViolentCrimeRank,
 PropertyCrimeRank,
