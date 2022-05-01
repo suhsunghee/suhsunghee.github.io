@@ -63,46 +63,11 @@ FROM popchar
 
 
 
---Exploring male ratio per state 
---For each state, get male population ratio ( Male population / Total Population ) 
-
-SELECT 
-
-one.state,
-Total_Population,
-MalePopulation,
-MaleRatio = MalePopulation*0.1/Total_Population,
-MaleRatioRank =  RANK() OVER(ORDER BY MalePopulation*0.1/Total_Population DESC) 
-FROM 
-( 
-
-SELECT 
-state, 
-Total_Population = SUM(population) 
-FROM popchar_2015
-WHERE gender != 'Total'
-GROUP BY state) 
-
-AS one 
-JOIN 
-(
-SELECT 
-state,
-MalePopulation = SUM(population) 
-FROM popchar_2015
-WHERE gender = 'MALE'
-GROUP BY state) 
-
-AS two
-on one.state = two.state 
-
-ORDER BY MaleRatio	DESC
+-- Crime data modification 
 
 
 
-
-
--- Explore data by crime counts 
+-- explore total crime per state
 
 SELECT st, (SUM(violent_crime+property_crime+burglary+larceny_theft+motor_vehicle_theft)) AS TotalCrime FROM crimedata
 GROUP BY st 
@@ -132,6 +97,8 @@ SET motor_vehicle_theft =0 WHERE motor_vehicle_theft IS NULL
 -- Grouping crime data on state level to make a separate table to join with demographic data
 
 
+-- create table for crime rate per state
+
 
 CREATE TABLE crime_state (
 
@@ -146,6 +113,7 @@ t_VehicleTheft bigint
 
 )
 
+-- inserting into crime state table from group by query result 
 
 
 INSERT INTO crime_state (state, t_pop,t_ViolentCrime,t_PropertyCrime,t_Burglary,t_LarcenyTheft,t_VehicleTheft)
@@ -160,6 +128,9 @@ SUM([motor_vehicle_theft])as t_VehicleTheft
 
 FROM crimedata 
 GROUP BY st
+
+
+
 
 
 -- Exploring cleaned Crime_data
@@ -184,7 +155,9 @@ GROUP BY state
 
 
 
--- Finally,  Joining Crime rank and  male population ratio to explore if there's any relationship between crime rate and male ratio per state
+-- Joining Crime rank and  male population ratio to explore if there's any relationship between crime rate and male ratio per state
+-- Selecting final columns to be returned from 3 joined tables
+
 
 SELECT 
 
@@ -204,8 +177,6 @@ FROM
 (
 SELECT 
 
-
-
 state,
 CrimeRatio = (SUM(t_ViolentCrime+t_PropertyCrime+t_burglary+t_LarcenyTheft+t_VehicleTheft)*0.1/ SUM(t_pop)),
 ViolentCrimeRank = RANK() OVER(ORDER BY (SUM(t_ViolentCrime)*0.1 / SUM(t_pop)) DESC),
@@ -214,10 +185,9 @@ BurglaryRank = RANK() OVER(ORDER BY (SUM(t_burglary)*0.1 / SUM(t_pop)) DESC),
 LarcenyTheftRank = RANK() OVER(ORDER BY (SUM(t_LarcenyTheft)*0.1 / SUM(t_pop)) DESC),
 VehicleTheftRank = RANK() OVER(ORDER BY (SUM(t_VehicleTheft)*0.1 / SUM(t_pop)) DESC)
 
-
 FROM crime_state 
-
 GROUP BY state
+
 ) AS crimetable 
 
 JOIN 
@@ -254,7 +224,5 @@ on one.state = two.state
 ) AS three
 
 on crimetable.state = three.state
-
-
 
 
