@@ -220,3 +220,81 @@ B.RejectedQty = 0
 
 FROM Purchasing.PurchaseOrderHeader A
 
+
+-- Using Exist to reference another table without a join  
+
+SELECT 
+
+A.[SalesorderID]
+,A.[OrderDate]
+,A.[TotalDue]
+
+FROM [Sales].[SalesOrderHeader] A
+
+WHERE EXISTS (
+SELECT
+1
+FROM [Sales].[SalesOrderDetail] B
+WHERE B.LineTotal > 10000
+AND A.[SalesOrderID]=B.[SalesOrderID]
+
+)
+
+ORDER BY 1 
+
+
+ 
+--Getting a list value for One to Many relationship 
+--Using FOR XML PATH With Stuff 
+
+SELECT
+
+SalesorderID,
+OrderDate,
+TaxAmt,
+Freight,
+TotalDue,
+LineTotals = 
+STUFF( 
+
+    ( 
+	SELECT 
+	','+ CAST(CAST(LineTotal AS MONEY) AS VARCHAR) 
+	FROM Sales.SalesOrderDetail B
+	WHERE A.SalesorderID = B.SalesOrderID 
+
+	FOR XML PATH('')
+	),
+	1,1,'')
+
+	FROM Sales.SalesOrderHeader A 
+
+
+
+--Pivoting by Product Category Names
+
+SELECT
+*
+
+FROM 
+(   SELECT ProductCategoryName = D.Name,
+	A.LineTotal,
+	A.OrderQty
+FROM Sales.SalesOrderDetail A
+	JOIN Production.Product B
+	ON A.ProductID = B.ProductID
+	JOIN Production.ProductSubCategory C
+	ON B.ProductSubCategoryID = C.ProductSubCategoryID
+	JOIN Production.ProductCategory D
+	ON C.ProductCategoryID = D.ProductCategoryID
+
+) A
+
+PIVOT
+
+( 
+SUM(LineTotal)
+FOR ProductCategoryName IN([Bikes],[Clothing],[Accessories],[Components]) 
+)B 
+
+
