@@ -298,3 +298,96 @@ FOR ProductCategoryName IN([Bikes],[Clothing],[Accessories],[Components])
 )B 
 
 
+-- Using subqueries to return Sun of Top 10 orders per month and compare each monthly top 10 sum 
+-- with previous month of top 10 sum
+-- Problem is approached both using subqueries and CTEs 
+
+-- Subquery 
+
+
+SELECT
+A.OrderMonth,
+A.Top10Total,
+PreviousTop10Total = B.Top10Total
+
+FROM 
+
+(SELECT 
+
+OrderMonth,
+Top10Total = SUM(TotalDue)
+
+FROM (
+
+SELECT
+OrderDate,
+TotalDue,
+OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1),
+OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+FROM Sales.SalesOrderHeader
+) X
+
+WHERE OrderRank <= 10
+
+GROUP BY OrderMonth
+)
+A
+
+LEFT JOIN
+
+(SELECT 
+
+OrderMonth,
+Top10Total = SUM(TotalDue)
+
+FROM (
+
+SELECT
+OrderDate,
+TotalDue,
+OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1),
+OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+FROM Sales.SalesOrderHeader
+) X
+
+WHERE OrderRank <= 10
+
+GROUP BY OrderMonth
+) B ON A.OrderMonth = DATEADD(MONTH,1,B.OrderMonth)
+
+ORDER BY A.OrderMonth
+
+
+-- CTE
+
+
+WITH Sales AS
+
+(
+SELECT
+OrderDate,
+TotalDue,
+OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1),
+OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+FROM Sales.SalesOrderHeader
+),
+
+Top10 AS (
+SELECT 
+OrderMonth,
+Top10Total = SUM(TotalDue)
+FROM Sales
+WHERE OrderRank <= 10
+GROUP BY OrderMonth
+)
+
+SELECT
+A.OrderMonth,
+A.Top10Total,
+PreviousTop10Total = B.Top10Total
+FROM Top10 A
+LEFT JOIN Top10 B
+ON A.OrderMonth=DATEADD(MONTH,1,B.OrderMonth)
+ORDER BY A.OrderMonth
+
+
