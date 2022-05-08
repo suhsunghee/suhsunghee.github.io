@@ -10,12 +10,16 @@ After combining demographic data and crime data per state, the analysis shows th
 #### **Skills needed** 
 SQL,Tableau (Work in Progress )
 
-## [**2.Hotel Data Exploration**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/2.Hotel_Revenue)
+## [**2.Billionaires and GDP **](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/2.Billionaires%20and%20GDP)
 
 #### **Overview**
-<p>Stays and customer data has been collected from 'A Hotel' from 2018-2021<br>
-Using SQL to answer few questions can arise from marketing team, such as when is it most efficient for special deals for
-certain customer groups. Then the data is combined for further visualization  <br></p>
+<p>Billionaire list collected in 2022 is compared with GDP data per country level
+GDP per capital and GDP Total for individual country has been ranked. 
+GDP Total Rank / GDP Per Capita Rank comparison shows that the two are not necessarily correlated.
+In fact, TOP 10 of the Total GDP countries have GDP per capita rank of lower than 20, only except for U.S.
+Also, in Belize, St. Kitts and Eswatini, there exist individuals that worth more than their countries' total GDP
+<br>
+ <br></p>
 
 #### **Skills needed** 
 SQL, Tableau
