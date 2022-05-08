@@ -10,7 +10,7 @@ After combining demographic data and crime data per state, the analysis shows th
 #### **Skills needed** 
 SQL,Tableau (Work in Progress )
 
-## [**2.Billionaires and GDP **](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/2.Billionaires%20and%20GDP)
+## [**2.Billionaires and GDP**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/2.Billionaires%20and%20GDP)
 
 #### **Overview**
 <p>Billionaire list collected in 2022 is compared with GDP data per country level
