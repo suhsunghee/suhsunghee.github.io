@@ -391,3 +391,89 @@ ON A.OrderMonth=DATEADD(MONTH,1,B.OrderMonth)
 ORDER BY A.OrderMonth
 
 
+--------------------------------------------------------------Recursion CTE
+
+--Making a recursion CTE to add on day on a date field
+
+WITH DateSeries AS
+(
+SELECT CAST('01-01-2022' AS DATE) AS MyDate
+
+UNION ALL
+
+SELECT
+DATEADD(DAY,1,MyDate)
+FROM DateSeries
+WHERE MyDate < CAST('12-31-2022' AS DATE)
+
+)
+
+SELECT 
+MyDate
+FROM DateSeries
+OPTION(MAXRECURSION 365)
+
+
+--------------------------------------------------------------Creating Temp Tables
+
+ CREATE TABLE # Sales
+(
+
+OrderDate DATETIME,
+TotalDue DATE,
+OrderMonth MONEY,
+OrderRank INT
+
+)
+
+INSERT INTO #Sales 
+(
+
+OrderDate DATETIME,
+TotalDue DATE,
+OrderMonth MONEY,
+OrderRank INT
+
+)
+
+SELECT
+OrderDate,
+TotalDue,
+OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1),
+OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+
+INTO #Sales 
+FROM Sales.SalesOrderHeader
+
+
+
+
+CREATE TABLE #Top10Sales
+(
+OrderMonth DATE
+Top10Total MONEY
+)
+
+INSERT INTO #Top10Sales
+
+SELECT 
+OrderMonth,
+Top10Total = SUM(TotalDue)
+FROM #Sales
+WHERE OrderRank <= 10
+GROUP BY OrderMonth
+
+
+
+SELECT
+A.OrderMonth,
+A.Top10Total,
+PreviousTop10Total = B.Top10Total
+FROM #Top10Sales A
+LEFT JOIN #Top10Sales B
+ON A.OrderMonth=DATEADD(MONTH,1,B.OrderMonth)
+ORDER BY A.OrderMonth
+
+
+DROP TABLE #Sales
+DROP TABLE #Top10Sales
