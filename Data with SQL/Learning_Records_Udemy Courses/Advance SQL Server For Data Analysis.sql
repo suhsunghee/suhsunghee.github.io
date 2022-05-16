@@ -102,8 +102,13 @@ FROM Sales.SalesOrderHeader
 ORDER BY [SalesOrderID]
 
 
+
+
+---1.2 LAG & LEAD FUNCTION TO COMPARE WITH WINDOWFUNCTION
 -- LAG function to show previous total due from the same vendors for each orderdate
 -- LEAD function to show next vendor names processed by each employee 
+
+
 
 SELECT 
 	   PurchaseOrderID
@@ -127,6 +132,7 @@ SELECT
 
 
 
+
 -- Combining partition by with LEAD & LAG function to group the result by customers
 
 SELECT 
@@ -138,6 +144,8 @@ SELECT
 [PreviousTotalDue] = LAG([TotalDue],1) OVER(PARTITION BY [CustomerID] ORDER BY [SalesOrderID])
 FROM Sales.SalesOrderHeader
 ORDER BY [CustomerID], [SalesOrderID]
+
+
 
 
 -- Using DENSE_RANK() with subquery to bring back only resuts that are top 3 total due per vendor 
@@ -167,7 +175,9 @@ FROM (
 WHERE PurchaseOrderRank <= 3
 
 
--- Combining WINDOW fuction and subqueries
+-- 1.3 Combining WINDOW fuction and subqueries
+
+
 -- Return MaxRatio column to show percentage of employee vacation time compared to the max vacation hours
 -- Using subquery to refine the data to filter out any employees whoes vacation hours are less than 80% of
 -- the maximum amount of vacation hours.
@@ -187,7 +197,10 @@ WHERE
 0.8 < (SELECT MAX([VacationHours]) OVER(PARTITION BY [BusinessEntityID] ORDER BY [VacationHours]))*1.0/
 (SELECT MAX([VacationHours]) FROM AdventureWorks2019.HumanResources.Employee)
 
--- Correlated subqueries
+-- 1.4 Correlated subqueries
+
+
+
 -- Using Correlated Subqueries to return count of purchase record that has not been rejected
 -- Using Correlated Subqueries to return the max unit price for a given purchase order ID 
 
@@ -221,7 +234,7 @@ B.RejectedQty = 0
 FROM Purchasing.PurchaseOrderHeader A
 
 
--- Using Exist to reference another table without a join  
+-- 1.5 Using Exist to reference another table without a join  
 
 SELECT 
 
@@ -271,7 +284,7 @@ STUFF(
 
 
 
---Pivoting by Product Category Names
+-- 2.1 Pivoting by Product Category Names
 
 SELECT
 *
@@ -302,7 +315,7 @@ FOR ProductCategoryName IN([Bikes],[Clothing],[Accessories],[Components])
 -- with previous month of top 10 sum
 -- Problem is approached both using subqueries and CTEs 
 
--- Subquery 
+-- 2.2  Subquery 
 
 
 SELECT
@@ -358,7 +371,7 @@ GROUP BY OrderMonth
 ORDER BY A.OrderMonth
 
 
--- CTE
+--2.3  CTE
 
 
 WITH Sales AS
@@ -372,7 +385,8 @@ OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(O
 FROM Sales.SalesOrderHeader
 ),
 
-Top10 AS (
+Top10 AS 
+(
 SELECT 
 OrderMonth,
 Top10Total = SUM(TotalDue)
@@ -391,7 +405,7 @@ ON A.OrderMonth=DATEADD(MONTH,1,B.OrderMonth)
 ORDER BY A.OrderMonth
 
 
---------------------------------------------------------------Recursion CTE
+--- 2.4 Recursion CTE
 
 --Making a recursion CTE to add on day on a date field
 
@@ -414,27 +428,10 @@ FROM DateSeries
 OPTION(MAXRECURSION 365)
 
 
---------------------------------------------------------------Creating Temp Tables
+--3.1 Creating Temp Tables
+--1. Directly SELECT fields and make table with INTO statement
+--2. CREATE TABLE then assign the fields then use INSERT INTO (With or without field list) , followed by SELECT 
 
- CREATE TABLE # Sales
-(
-
-OrderDate DATETIME,
-TotalDue DATE,
-OrderMonth MONEY,
-OrderRank INT
-
-)
-
-INSERT INTO #Sales 
-(
-
-OrderDate DATETIME,
-TotalDue DATE,
-OrderMonth MONEY,
-OrderRank INT
-
-)
 
 SELECT
 OrderDate,
@@ -450,7 +447,7 @@ FROM Sales.SalesOrderHeader
 
 CREATE TABLE #Top10Sales
 (
-OrderMonth DATE
+OrderMonth DATE,
 Top10Total MONEY
 )
 
@@ -477,3 +474,734 @@ ORDER BY A.OrderMonth
 
 DROP TABLE #Sales
 DROP TABLE #Top10Sales
+
+
+--3.2 Truncating table to use the same structure of a temporary tables for different data sources 
+--Top 10 sales + purchases script
+
+CREATE TABLE #Orders
+(
+       OrderDate DATE
+	  ,OrderMonth DATE
+      ,TotalDue MONEY
+	  ,OrderRank INT
+)
+
+
+
+INSERT INTO #Orders
+(
+       OrderDate
+	  ,OrderMonth
+      ,TotalDue
+	  ,OrderRank
+)
+SELECT 
+       OrderDate
+	  ,OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1)
+      ,TotalDue
+	  ,OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader
+
+
+
+CREATE TABLE #Top10Orders
+(
+OrderMonth DATE,
+OrderType VARCHAR(32),
+Top10Total MONEY
+)
+
+
+INSERT INTO #Top10Orders
+(
+OrderMonth,
+OrderType,
+Top10Total
+)
+SELECT
+OrderMonth,
+OrderType = 'Sales',
+Top10Total = SUM(TotalDue)
+
+FROM #Orders
+WHERE OrderRank <= 10
+GROUP BY OrderMonth
+
+
+/*Fun part begins here*/
+
+TRUNCATE TABLE #Orders
+
+INSERT INTO #Orders
+(
+       OrderDate
+	  ,OrderMonth
+      ,TotalDue
+	  ,OrderRank
+)
+SELECT 
+       OrderDate
+	  ,OrderMonth = DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1)
+      ,TotalDue
+	  ,OrderRank = ROW_NUMBER() OVER(PARTITION BY DATEFROMPARTS(YEAR(OrderDate),MONTH(OrderDate),1) ORDER BY TotalDue DESC)
+
+FROM AdventureWorks2019.Purchasing.PurchaseOrderHeader
+
+
+INSERT INTO #Top10Orders
+(
+OrderMonth,
+OrderType,
+Top10Total
+)
+SELECT
+OrderMonth,
+OrderType = 'Purchase',
+Top10Total = SUM(TotalDue)
+
+FROM #Orders
+WHERE OrderRank <= 10
+GROUP BY OrderMonth
+
+
+SELECT
+A.OrderMonth,
+A.OrderType,
+A.Top10Total,
+PrevTop10Total = B.Top10Total
+
+FROM #Top10Orders A
+	LEFT JOIN #Top10Orders B
+		ON A.OrderMonth = DATEADD(MONTH,1,B.OrderMonth)
+			AND A.OrderType = B.OrderType
+
+ORDER BY 3 DESC
+
+DROP TABLE #Orders
+DROP TABLE #Top10Orders
+
+
+
+
+
+--4.1  Optimization
+--1.Filter as early as possible
+--2.Avoid sevral JOINS in as single SELECT 
+--3.use UPDATE statements to populate fields in a temp table, one source table at a time
+--4.apply indexes to fields that will used in JOINS 
+
+
+--Using UPDATE to replace WHERE EXISTS subquery 
+
+--Select all orders with at least one item over 10K, using EXISTS
+
+SELECT
+       A.SalesOrderID
+      ,A.OrderDate
+      ,A.TotalDue
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader A
+
+WHERE EXISTS (
+	SELECT
+	1
+	FROM AdventureWorks2019.Sales.SalesOrderDetail B
+	WHERE A.SalesOrderID = B.SalesOrderID
+		AND B.LineTotal > 10000
+)
+
+ORDER BY 1
+
+
+
+--5.) Select all orders with at least one item over 10K, including a line item value, using UPDATE
+
+--Create a table with Sales data, including a field for line total:
+CREATE TABLE #Sales
+(
+SalesOrderID INT,
+OrderDate DATE,
+TotalDue MONEY,
+LineTotal MONEY
+)
+
+
+--Insert sales data to temp table
+INSERT INTO #Sales
+(
+SalesOrderID,
+OrderDate,
+TotalDue
+)
+
+SELECT
+SalesOrderID,
+OrderDate,
+TotalDue
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader
+
+
+--Update temp table with > 10K line totals
+
+UPDATE A
+SET LineTotal = B.LineTotal
+
+FROM #Sales A
+	JOIN AdventureWorks2019.Sales.SalesOrderDetail B
+		ON A.SalesOrderID = B.SalesOrderID
+WHERE B.LineTotal > 10000
+
+
+--Recreate EXISTS:
+
+SELECT * FROM #Sales WHERE LineTotal IS NOT NULL
+
+
+--Recreate NOT EXISTS:
+
+SELECT * FROM #Sales WHERE LineTotal IS NULL
+
+
+
+SELECT * FROM Sales.SalesOrderDetail
+
+
+----- Creating a calendar table for lookup 
+
+--Create Table
+
+CREATE TABLE Adventureworks2019.dbo.Calendar
+(
+DateValue DATE,
+DayOfWeekNumber INT,
+DayOfWeekName VARCHAR(32),
+DayOfMonthNumber INT,
+MonthNumber INT,
+YearNumber INT,
+WeekendFlag TINYINT,
+HolidayFlag TINYINT
+)
+
+
+--Insert values manually
+
+INSERT INTO Adventureworks2019.dbo.Calendar
+(
+DateValue,
+DayOfWeekNumber,
+DayOfWeekName,
+DayOfMonthNumber,
+MonthNumber,
+YearNumber,
+WeekendFlag,
+HolidayFlag
+)
+
+VALUES
+(CAST('01-01-2011' AS DATE),7,'Saturday',1,1,2011,1,1),
+(CAST('01-02-2011' AS DATE),1,'Sunday',2,1,2011,1,0)
+
+
+SELECT * FROM Adventureworks2019.dbo.Calendar
+
+
+--Truncate manually inserted values
+
+
+TRUNCATE TABLE Adventureworks2019.dbo.Calendar
+
+
+
+
+--Insert dates to table with recursive CTE
+
+WITH Dates AS
+(
+SELECT
+ CAST('01-01-2011' AS DATE) AS MyDate
+
+UNION ALL
+
+SELECT
+DATEADD(DAY, 1, MyDate)
+FROM Dates
+WHERE MyDate < CAST('12-31-2030' AS DATE)
+)
+
+INSERT INTO AdventureWorks2019.dbo.Calendar
+(
+DateValue
+)
+SELECT
+MyDate
+
+FROM Dates
+OPTION (MAXRECURSION 10000)
+
+SELECT * FROM AdventureWorks2019.dbo.Calendar
+
+
+
+
+
+
+
+
+
+UPDATE AdventureWorks2019.dbo.Calendar
+SET
+DayOfWeekNumber = DATEPART(WEEKDAY,DateValue),
+DayOfWeekName = FORMAT(DateValue,'dddd'),
+DayOfMonthNumber = DAY(DateValue),
+MonthNumber = MONTH(DateValue),
+YearNumber = YEAR(DateValue)
+
+
+SELECT * FROM AdventureWorks2019.dbo.Calendar
+
+
+
+UPDATE AdventureWorks2019.dbo.Calendar
+SET
+WeekendFlag = 
+	CASE
+		WHEN DayOfWeekNumber IN(1,7) THEN 1
+		ELSE 0
+	END
+
+
+SELECT * FROM AdventureWorks2019.dbo.Calendar
+
+
+
+UPDATE AdventureWorks2019.dbo.Calendar
+SET
+HolidayFlag =
+	CASE
+		WHEN DayOfMonthNumber = 1 AND MonthNumber = 1 THEN 1
+		ELSE 0
+	END
+
+
+SELECT * FROM AdventureWorks2019.dbo.Calendar
+
+
+--Use Calendar table in a query
+
+
+SELECT
+A.*
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader A
+	JOIN AdventureWorks2019.dbo.Calendar B
+		ON A.OrderDate = B.DateValue
+
+WHERE B.WeekendFlag = 1
+
+
+
+
+
+
+--- 5. Programming with SQL
+--- 5.1 Variable 
+
+--Embedded scalar subquery example
+
+SELECT 
+	   ProductID
+      ,[Name]
+      ,StandardCost
+      ,ListPrice
+	  ,AvgListPrice = (SELECT AVG(ListPrice) FROM AdventureWorks2019.Production.Product)
+	  ,AvgListPriceDiff = ListPrice - (SELECT AVG(ListPrice) FROM AdventureWorks2019.Production.Product)
+
+FROM AdventureWorks2019.Production.Product
+
+WHERE ListPrice > (SELECT AVG(ListPrice) FROM AdventureWorks2019.Production.Product)
+
+ORDER BY ListPrice ASC
+
+
+
+--Rewritten with variables:
+
+DECLARE @AvgPrice MONEY = (SELECT AVG(ListPrice) FROM AdventureWorks2019.Production.Product)
+
+SELECT 
+	   ProductID
+      ,[Name]
+      ,StandardCost
+      ,ListPrice
+	  ,AvgListPrice = @AvgPrice
+	  ,AvgListPriceDiff = ListPrice - @AvgPrice
+
+FROM AdventureWorks2019.Production.Product
+
+WHERE ListPrice > @AvgPrice
+
+ORDER BY ListPrice ASC
+
+
+--Variables for complex date math:
+
+DECLARE @Today DATE = CAST(GETDATE() AS DATE)
+
+SELECT @Today
+
+DECLARE @BOM DATE = DATEFROMPARTS(YEAR(@Today),MONTH(@Today),1)
+
+SELECT @BOM 
+
+DECLARE @PrevEOM DATE = DATEADD(DAY,-1,@BOM)
+
+SELECT @PrevEOM
+
+DECLARE @PrevBOM DATE = DATEADD(MONTH,-1,@BOM)
+
+SELECT @PrevBOM
+
+
+
+SELECT
+*
+FROM AdventureWorks2019.dbo.Calendar
+WHERE DateValue BETWEEN @PrevBOM AND @PrevEOM
+
+
+---5.2 User defined functions
+--Code to create user defined function:
+
+CREATE FUNCTION dbo.ufnCurrentDate()
+
+RETURNS DATE
+
+AS
+
+BEGIN
+
+	RETURN CAST(GETDATE() AS DATE)
+
+END
+
+
+--Query that calls user defined function
+
+SELECT
+	   SalesOrderID
+      ,OrderDate
+      ,DueDate
+      ,ShipDate
+	  ,Today = dbo.ufnCurrentDate()
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader A
+
+WHERE YEAR(A.OrderDate) = 2011
+
+
+----5.3 User defined functions with parameters 
+
+--Correlated Subquery Example:
+
+SELECT
+	   SalesOrderID
+      ,OrderDate
+      ,DueDate
+      ,ShipDate
+	  ,ElapsedBusinessDays = (
+		SELECT
+		COUNT(*)
+		FROM AdventureWorks2019.dbo.Calendar B
+		WHERE B.DateValue BETWEEN A.OrderDate AND A.ShipDate
+			AND B.WeekendFlag = 0
+			AND B.HolidayFlag = 0
+	  ) - 1
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader A
+
+WHERE YEAR(A.OrderDate) = 2011
+
+
+
+--Rewriting as a fucntion, with variables:
+
+CREATE FUNCTION dbo.ufnElapsedBusinessDays(@StartDate DATE, @EndDate DATE)
+
+RETURNS INT
+
+AS  
+
+BEGIN
+
+	RETURN 
+		(
+			SELECT
+				COUNT(*)
+			FROM AdventureWorks2019.dbo.Calendar
+
+			WHERE DateValue BETWEEN @StartDate AND @EndDate
+				AND WeekendFlag = 0
+				AND HolidayFlag = 0
+		)	- 1
+
+END
+
+
+
+
+--Using the function in a query
+
+SELECT
+	   SalesOrderID
+      ,OrderDate
+      ,DueDate
+      ,ShipDate
+	  ,ElapsedBusinessDays = dbo.ufnElapsedBusinessDays(OrderDate,ShipDate)
+
+FROM AdventureWorks2019.Sales.SalesOrderHeader
+
+WHERE YEAR(OrderDate) = 2011
+
+----5.4 Stored Procedures
+
+--Starter query:
+
+	SELECT
+		*
+	FROM (
+		SELECT 
+			ProductName = B.[Name],
+			LineTotalSum = SUM(A.LineTotal),
+			LineTotalSumRank = DENSE_RANK() OVER(ORDER BY SUM(A.LineTotal) DESC)
+
+		FROM AdventureWorks2019.Sales.SalesOrderDetail A
+			JOIN AdventureWorks2019.Production.Product B
+				ON A.ProductID = B.ProductID
+
+		GROUP BY
+			B.[Name]
+		) X
+
+	WHERE LineTotalSumRank <= 10
+
+
+
+--Basic (non-dynamic) stored procedure
+
+CREATE PROCEDURE dbo.OrdersReport
+
+AS
+
+BEGIN
+	SELECT
+		*
+	FROM (
+		SELECT 
+			ProductName = B.[Name],
+			LineTotalSum = SUM(A.LineTotal),
+			LineTotalSumRank = DENSE_RANK() OVER(ORDER BY SUM(A.LineTotal) DESC)
+
+		FROM AdventureWorks2019.Sales.SalesOrderDetail A
+			JOIN AdventureWorks2019.Production.Product B
+				ON A.ProductID = B.ProductID
+
+		GROUP BY
+			B.[Name]
+		) X
+
+	WHERE LineTotalSumRank <= 10
+END
+
+
+
+--Execute stored procedure
+
+EXEC dbo.OrdersReport
+
+
+
+
+
+--Modify stored procedure to accept parameter
+
+ALTER PROCEDURE dbo.OrdersReport(@TopN INT)
+
+AS
+
+BEGIN
+	SELECT
+		*
+	FROM (
+		SELECT 
+			ProductName = B.[Name],
+			LineTotalSum = SUM(A.LineTotal),
+			LineTotalSumRank = DENSE_RANK() OVER(ORDER BY SUM(A.LineTotal) DESC)
+
+		FROM AdventureWorks2019.Sales.SalesOrderDetail A
+			JOIN AdventureWorks2019.Production.Product B
+				ON A.ProductID = B.ProductID
+
+		GROUP BY
+			B.[Name]
+		) X
+
+	WHERE LineTotalSumRank <= @TopN
+END
+
+
+
+--Execute stored procedure
+
+EXEC dbo.OrdersReport 20
+
+
+-- 5.5 USING IF Statements to leverage flexibility of stored procedures
+--Multiple IF statement example
+
+ALTER PROCEDURE dbo.OrdersReport(@TopN INT, @OrderType INT)
+
+AS
+
+BEGIN
+
+	IF @OrderType = 1
+		BEGIN
+			SELECT
+				*
+			FROM (
+				SELECT 
+					ProductName = B.[Name],
+					LineTotalSum = SUM(A.LineTotal),
+					LineTotalSumRank = DENSE_RANK() OVER(ORDER BY SUM(A.LineTotal) DESC)
+
+				FROM AdventureWorks2019.Sales.SalesOrderDetail A
+					JOIN AdventureWorks2019.Production.Product B
+						ON A.ProductID = B.ProductID
+
+				GROUP BY
+					B.[Name]
+				) X
+
+			WHERE LineTotalSumRank <= @TopN
+		END
+	IF @OrderType = 2
+		BEGIN
+				SELECT
+					*
+				FROM(
+					SELECT 
+						ProductName = B.[Name],
+						LineTotalSum = SUM(A.LineTotal),
+						LineTotalSumRank = DENSE_RANK() OVER(ORDER BY SUM(A.LineTotal) DESC)
+
+					FROM AdventureWorks2019.Purchasing.PurchaseOrderDetail A
+						JOIN AdventureWorks2019.Production.Product B
+							ON A.ProductID = B.ProductID
+
+					GROUP BY
+						B.[Name]
+					) X
+
+				WHERE LineTotalSumRank <= @TopN
+			END
+
+	IF @OrderType = 3
+		BEGIN				
+			SELECT
+				ProductID,
+				LineTotal
+
+			INTO #AllOrders
+
+			FROM AdventureWorks2019.Sales.SalesOrderDetail
+
+			INSERT INTO #AllOrders
+
+			SELECT
+				ProductID,
+				LineTotal
+
+			FROM AdventureWorks2019.Purchasing.PurchaseOrderDetail
+					
+
+			SELECT
+				*
+			FROM (
+				SELECT 
+					ProductName = B.[Name],
+					LineTotalSum = SUM(A.LineTotal),
+					LineTotalSumRank = DENSE_RANK() OVER(ORDER BY SUM(A.LineTotal) DESC)
+
+				FROM #AllOrders A
+					JOIN AdventureWorks2019.Production.Product B
+						ON A.ProductID = B.ProductID
+
+				GROUP BY
+					B.[Name]
+				) X
+
+			WHERE LineTotalSumRank <= @TopN
+
+			DROP TABLE #AllOrders
+		END
+END
+
+
+
+--Call modified stored procedure
+
+
+EXEC dbo.OrdersReport 20,1
+
+EXEC dbo.OrdersReport 15,2
+
+EXEC dbo.OrdersReport 25,3
+
+
+----5.6 Dynamic SQL 
+
+CREATE PROC dbo.DynamicTopN(@TopN INT, @AggFunc VARCHAR(50))
+
+AS
+
+BEGIN
+	DECLARE @DynamicSQL VARCHAR(MAX)
+
+	SET @DynamicSQL = 
+	'	SELECT
+			*
+		FROM (
+			SELECT 
+				ProductName = B.[Name],
+				LineTotalSum = ' 
+
+	SET @DynamicSQL = @DynamicSQL + @AggFunc
+
+	SET @DynamicSQL = @DynamicSQL +
+	'(A.LineTotal),
+				LineTotalSumRank = DENSE_RANK() OVER(ORDER BY '
+
+	SET @DynamicSQL = @DynamicSQL + @AggFunc
+
+	SET @DynamicSQL = @DynamicSQL +
+	'(A.LineTotal) DESC)
+
+			FROM AdventureWorks2019.Sales.SalesOrderDetail A
+				JOIN AdventureWorks2019.Production.Product B
+					ON A.ProductID = B.ProductID
+
+			GROUP BY
+				B.[Name]
+			) X
+
+		WHERE LineTotalSumRank <= '
+
+	SET @DynamicSQL = @DynamicSQL + CAST(@TopN AS VARCHAR)
+
+	EXEC(@DynamicSQL)
+
+END
+
