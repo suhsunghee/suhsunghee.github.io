@@ -1,0 +1,218 @@
+GDP2020Rank	GDP2000Rank	GDP1980Rank	GDP1960Rank	Country Name	AverageRank
+1	1	1	1	United States	1
+3	2	2	5	Japan	3
+5	4	5	2	United Kingdom	4
+7	5	4	3	France	4
+2	6	12	4	China	6
+9	8	7	6	Canada	7
+8	7	6	7	Italy	7
+6	13	13	8	India	10
+12	10	8	10	Brazil	10
+15	9	10	13	Mexico	11
+14	11	9	15	Spain	12
+13	15	15	9	Australia	13
+17	14	11	14	Netherlands	14
+22	19	16	11	Sweden	17
+18	17	18	17	Switzerland	17
+19	18	25	12	Turkey	18
+23	21	17	16	Belgium	19
+10	12	26	31	Korea, Rep.	19
+25	22	21	21	Austria	22
+38	29	20	19	South Africa	26
+31	26	27	24	Norway	27
+49	36	19	27	Iran, Islamic Rep.	32
+26	47	28	28	Nigeria	32
+32	43	35	20	Philippines	32
+42	33	31	23	Finland	32
+24	32	38	35	Thailand	32
+51	31	30	25	Greece	34
+40	39	36	30	Colombia	36
+35	25	40	45	Hong Kong SAR, China	36
+27	38	45	41	Ireland	37
+47	34	37	34	Portugal	38
+44	46	39	29	Chile	39
+43	44	43	32	Pakistan	40
+37	42	42	42	Malaysia	40
+39	51	50	26	Bangladesh	41
+48	52	44	22	New Zealand	41
+56	50	34	36	Algeria	44
+36	41	56	55	Singapore	47
+50	53	51	38	Peru	48
+58	56	46	40	Morocco	50
+63	49	53	43	Puerto Rico	52
+4	3	3	217	Germany	56
+65	73	52	39	Ecuador	57
+86	72	54	33	Congo, Dem. Rep.	61
+69	71	60	50	Guatemala	62
+83	65	58	47	Uruguay	63
+68	64	64	59	Dominican Republic	63
+71	68	68	56	Luxembourg	65
+64	84	63	53	Kenya	66
+66	78	80	44	Sri Lanka	67
+20	23	14	213	Saudi Arabia	67
+76	77	57	62	Cote d'Ivoire	68
+196	35	29	18	Venezuela, RB	69
+29	16	22	214	Argentina	70
+16	27	23	215	Indonesia	70
+75	79	73	67	Costa Rica	73
+109	86	62	46	Sudan	75
+34	28	24	216	Denmark	75
+90	89	66	61	Cameroon	76
+82	85	74	64	Panama	76
+28	30	216	37	Israel	77
+33	37	33	212	United Arab Emirates	78
+73	121	78	48	Ghana	80
+30	40	47	208	Egypt, Arab Rep.	81
+92	98	75	70	Bolivia	83
+114	108	65	49	Zimbabwe	84
+103	111	76	51	Senegal	85
+108	100	67	65	Trinidad and Tobago	85
+197	45	55	52	Syrian Arab Republic	87
+53	54	32	211	Iraq	87
+106	103	81	71	Honduras	90
+107	94	86	76	Iceland	90
+11	20	217	116	Russian Federation	91
+127	95	88	57	Jamaica	91
+61	58	41	207	Kuwait	91
+91	110	105	69	Uganda	93
+96	117	94	66	Nepal	93
+113	129	83	54	Zambia	94
+60	62	48	209	Cuba	94
+130	123	71	58	Madagascar	95
+102	130	89	77	Papua New Guinea	99
+67	105	116	109	Myanmar	99
+57	75	61	205	Qatar	99
+21	24	215	147	Poland	101
+125	106	99	75	Haiti	101
+121	120	79	85	Gabon	101
+70	70	69	203	Oman	103
+72	82	49	210	Bulgaria	103
+89	67	59	206	Tunisia	105
+132	119	92	79	Nicaragua	105
+115	140	95	72	Burkina Faso	105
+119	131	98	78	Benin	106
+143	101	102	83	Bahamas, The	107
+128	145	90	68	Niger	107
+122	113	112	95	Botswana	110
+79	92	70	204	Angola	111
+46	48	214	146	Czech Republic	113
+45	59	210	142	Romania	114
+41	61	212	144	Vietnam	114
+141	136	97	86	Congo, Rep.	115
+93	96	77	196	Paraguay	115
+87	97	82	197	Jordan	115
+54	55	213	145	Hungary	116
+55	60	211	143	Ukraine	117
+52	74	205	137	Kazakhstan	117
+99	128	184	60	Cambodia	117
+110	217	84	63	Afghanistan	118
+62	63	208	140	Slovak Republic	118
+134	150	106	84	Malawi	118
+104	87	85	198	El Salvador	118
+94	93	87	201	Bahrain	118
+140	146	103	88	Rwanda	119
+138	157	114	74	Chad	120
+59	99	198	130	Ethiopia	121
+105	90	93	199	Cyprus	121
+80	66	207	139	Croatia	123
+77	83	201	133	Belarus	123
+78	80	202	134	Uzbekistan	123
+74	81	203	135	Tanzania	123
+150	133	120	92	Bermuda	123
+148	155	109	87	Togo	124
+84	69	206	138	Slovenia	124
+81	88	200	132	Lithuania	125
+156	153	107	89	Fiji	126
+101	57	209	141	Libya	127
+85	104	197	129	Serbia	128
+97	76	204	136	Lebanon	128
+157	137	115	108	Barbados	129
+98	114	189	121	Estonia	130
+95	102	196	128	Latvia	130
+158	178	111	73	Sierra Leone	130
+135	112	72	202	Brunei Darussalam	130
+88	118	194	126	Azerbaijan	131
+159	151	123	93	Eswatini	131
+100	107	195	127	Macao SAR, China	132
+154	176	122	82	Guyana	133
+164	171	117	80	Burundi	133
+163	166	119	91	Suriname	134
+166	168	118	90	Central African Republic	135
+111	116	191	123	Bosnia and Herzegovina	135
+124	125	104	192	Malta	136
+116	141	96	195	Mali	137
+126	115	190	122	Mozambique	138
+123	132	185	117	Albania	139
+117	138	186	118	Georgia	139
+169	169	127	94	Lesotho	139
+137	122	110	190	Mauritius	139
+139	126	91	200	Namibia	139
+118	139	187	119	Guinea	140
+120	124	193	125	West Bank and Gaza	140
+149	214	121	81	Somalia	141
+172	173	130	96	Belize	142
+170	175	128	106	Gambia, The	144
+206	144	124	110	Liechtenstein	146
+171	182	134	100	Cabo Verde	146
+176	174	135	101	Antigua and Barbuda	146
+173	167	132	115	St. Lucia	146
+151	143	100	193	Monaco	146
+178	180	133	99	Seychelles	147
+167	184	136	102	Bhutan	147
+145	149	113	189	Mauritania	149
+142	163	144	149	Equatorial Guinea	149
+177	190	129	107	Comoros	150
+179	183	138	104	Grenada	151
+175	188	139	105	Guinea-Bissau	151
+210	161	125	111	Greenland	151
+183	187	140	97	St. Vincent and the Grenadines	151
+180	185	142	98	St. Kitts and Nevis	151
+174	186	131	114	Solomon Islands	151
+215	156	126	112	Andorra	152
+182	192	137	103	Vanuatu	153
+112	152	176	181	Lao PDR	155
+203	91	199	131	Yemen, Rep.	156
+186	191	141	113	Dominica	157
+133	127	183	188	North Macedonia	157
+160	179	145	150	Maldives	158
+131	147	177	182	Armenia	159
+205	135	108	191	New Caledonia	159
+211	109	192	124	Channel Islands	159
+212	134	101	194	French Polynesia	160
+129	160	175	180	Mongolia	161
+195	142	188	120	Turkmenistan	161
+136	159	174	179	Moldova	162
+146	158	173	178	Kyrgyz Republic	163
+155	165	167	172	Montenegro	164
+144	172	170	175	Tajikistan	165
+161	181	162	167	Djibouti	167
+162	170	169	174	Liberia	168
+187	195	143	148	Tonga	168
+192	198	146	151	Kiribati	171
+147	213	161	166	Kosovo	171
+168	189	165	170	Timor-Leste	173
+194	199	147	152	Tuvalu	173
+202	200	148	153	Sint Maarten (Dutch part)	175
+198	201	149	154	South Sudan	175
+201	164	166	171	San Marino	175
+165	212	160	165	Curacao	175
+199	202	150	155	St. Martin (French part)	176
+193	204	152	157	Nauru	176
+188	205	153	158	Sao Tome and Principe	176
+185	206	154	159	American Samoa	176
+200	203	151	156	Northern Mariana Islands	177
+184	193	163	168	Samoa	177
+208	154	172	177	Isle of Man	177
+181	211	159	164	Turks and Caicos Islands	178
+189	194	164	169	Micronesia, Fed. Sts.	179
+213	162	168	173	Faroe Islands	179
+216	148	178	183	Aruba	181
+207	207	155	160	Korea, Dem. People's Rep.	182
+204	208	156	161	Virgin Islands (U.S.)	182
+152	215	181	186	Guam	183
+153	216	182	187	Cayman Islands	184
+209	209	157	162	Gibraltar	184
+214	177	171	176	Eritrea	184
+217	210	158	163	British Virgin Islands	187
+190	196	179	184	Palau	187
+191	197	180	185	Marshall Islands	188
