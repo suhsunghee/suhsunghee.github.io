@@ -14,15 +14,17 @@ SQL,Tableau (Work in Progress )
 
 #### **Overview**
 <p>Billionaire list collected in 2022 is compared with GDP data per country level
-GDP per capital and GDP Total for individual country has been ranked. 
 GDP Total Rank / GDP Per Capita Rank comparison shows that the two are not necessarily correlated.
+ 
 In fact, TOP 10 of the Total GDP countries have GDP per capita rank of lower than 20, only except for U.S.
 Also, in Belize, St. Kitts and Eswatini, there exist individuals that worth more than their countries' total GDP
+
+GDP data from 1960-2020 has been transformed using JSON in SQL, which is a powerful tool for data analytics with SQL 
 <br>
  <br></p>
 
 #### **Skills needed** 
-SQL, Tableau
+SQL, JSON in SQL
 
 ## [**3.NFL Historical Data**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL/3.NFL%20Games)
 
