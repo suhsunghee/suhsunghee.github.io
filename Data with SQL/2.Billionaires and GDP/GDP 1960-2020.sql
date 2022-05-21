@@ -89,3 +89,17 @@ GDP1960Rank = ROW_NUMBER() OVER (ORDER BY ([1960]) DESC),
 
 ORDER BY AverageRank 
 
+-- Leveraging benefits of JSON in SQL
+-- Instead of stating each year value of the columns, use CROSS APPLY & JSON to unpivot
+
+SELECT
+A.[Country Name],
+B.*
+FROM GDP A
+CROSS APPLY (
+                SELECT [Key] AS [Year],
+                       VALUE AS [GDP]
+                 FROM OPENJSON((SELECT A.* FOR JSON PATH,WITHOUT_ARRAY_WRAPPER )) 
+                 WHERE [Key] not in ('Country Name','Country Code')
+             ) B
+			
