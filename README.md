@@ -8,12 +8,10 @@
 <br>
 
 
-﻿## **Data Analytics Portfolio(https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python)** <br>
+﻿ **Data Analytics Portfolio(https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python) <br>
 
 ﻿ **[SQL Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL)** </p>
 
 ﻿ **[Machine Learning with Python](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Machine_Learning/Linear%20Regression)** <br>
 
 ﻿ **[Python Programming Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Python%20Programming)** <br>
-  Python programming projects from Udemy course "Master Python Programming by solving Scientific projects by Mike X Cohen,<br>
-  one of my favorite course contents so far and explores interesting problems!
