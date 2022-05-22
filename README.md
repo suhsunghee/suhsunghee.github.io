@@ -8,7 +8,7 @@
 <br>
 
 
-﻿ **Data Analytics Portfolio(https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python)** <br>
+﻿ **[Data Analytics with Python](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python)** <br>
 
 ﻿ **[SQL Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL)** </p>
 
