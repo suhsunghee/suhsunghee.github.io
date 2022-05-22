@@ -14,6 +14,6 @@
 
 [Machine Learning with Python](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Machine_Learning/Linear%20Regression) <br>
 
-[Python Programming Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Python%20Programming)
+[Python Programming Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Python%20Programming) <br>
 Python programming projects from Udemy course "Master Python Programming by solving Scientific projects by Mike X Cohen,
 one of my favorite course contents so far and explores interesting problems!
