@@ -8,3 +8,5 @@ It’s divided into 3 main sections<br>
 [SQL Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20SQL) </p>
 
 [Machine Learning with Python](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Machine_Learning/Linear%20Regression) <br>
+
+[Python Programming Projects](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Python%20Programming)
