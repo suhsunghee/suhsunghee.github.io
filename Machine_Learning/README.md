@@ -1,7 +1,7 @@
 ﻿## **Machine Learning Projects**
 
 
-## [**1.Salary prediction based on experience year**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Platform_Sales_LinearRegression.ipynb)
+## [**1.Linear Regression: Platform & Sales**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Platform_Sales_LinearRegression.ipynb)
 
 ## **Overview**
 Sample dataset contians customers activity log.
