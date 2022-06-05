@@ -17,4 +17,14 @@ Python, Pandas, Numpy, Matplotlib, sklearn
 
 
 
+## [**1.Logistic Regression: Titanic**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Titanic_LogisticRegression.ipynb)
+## **Overview**
+Logistic Regression with Titanic Data Set from Kaggle - to predict a classification- survival or deceased. Implement Logistic Regression in Python for classification.
+
+## **Skills needed**
+Python, Pandas, Seaborn, sklearn
+
+
+
+
 
