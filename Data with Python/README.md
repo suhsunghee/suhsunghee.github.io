@@ -5,7 +5,7 @@
 ## [**GDP and Billionaires**](https://github.com/suhsunghee/suhsunghee.github.io/tree/main/Data%20with%20Python/1.GDP%20and%20Billionaires)
 
 #### **Overview**
-<p>2020 GDP total , 2020 GDP Per Capita & Billionaires age, country information has been analyzed<br>
+<p>2020 GDP total, 2020 GDP Per Capita & Billionaires age, country information has been analyzed<br>
 Data are mapped on a country level from Billionaire's nationalities.
 GDP total and GDP per capita has very low positive correlation, GDP per capita is highly concenterated near 0~60k USD
 Billionaires who have top networth are most found in age group of 45-75<br></p>
