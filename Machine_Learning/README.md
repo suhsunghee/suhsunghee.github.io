@@ -24,7 +24,13 @@ Logistic Regression with Titanic Data Set from Kaggle - to predict a classificat
 ## **Skills needed**
 Python, Pandas, Seaborn, sklearn
 
+## [**Logistic Regression: Click on Ad**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Click_on_Ad_LogisticRegression.ipynb)
+## **Overview**
+Logistic Regression with a fake advertising dataset to predict whether or not a particular user clicked on an Ad online. 
 
+
+## **Skills needed**
+Python, Pandas, Seaborn, sklearn
 
 
 
