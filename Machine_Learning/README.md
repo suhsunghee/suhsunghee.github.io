@@ -1,7 +1,7 @@
 ﻿## **Machine Learning Projects**
 
 
-## [**1.Linear Regression: Platform & Sales**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Platform_Sales_LinearRegression.ipynb)
+## [**Linear Regression: Platform & Sales**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Platform_Sales_LinearRegression.ipynb)
 
 ## **Overview**
 Sample dataset contians customers activity log.
@@ -17,7 +17,7 @@ Python, Pandas, Numpy, Matplotlib, sklearn
 
 
 
-## [**1.Logistic Regression: Titanic**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Titanic_LogisticRegression.ipynb)
+## [**Logistic Regression: Titanic**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Titanic_LogisticRegression.ipynb)
 ## **Overview**
 Logistic Regression with Titanic Data Set from Kaggle - to predict a classification- survival or deceased. Implement Logistic Regression in Python for classification.
 
