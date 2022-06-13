@@ -1,7 +1,7 @@
 ﻿## **Machine Learning Projects**
 
 
-## [**Linear Regression: Platform & Sales**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Platform_Sales_LinearRegression.ipynb)
+## [**Linear Regression: Platform & Sales**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Projects/Platform_Sales_LinearRegression.ipynb)
 
 ## **Overview**
 Sample dataset contians customers activity log.
@@ -16,15 +16,10 @@ Goal: To find out correlation of each variable and help the company to decide we
 Python, Pandas, Numpy, Matplotlib, sklearn
 
 
-
-## [**Logistic Regression: Titanic**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Titanic_LogisticRegression.ipynb)
-## **Overview**
-Logistic Regression with Titanic Data Set from Kaggle - to predict a classification- survival or deceased. Implement Logistic Regression in Python for classification.
-
 ## **Skills needed**
 Python, Pandas, Seaborn, sklearn
 
-## [**Logistic Regression: Click on Ad**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Click_on_Ad_LogisticRegression.ipynb)
+## [**Logistic Regression: Click on Ad**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Projects/Click_on_Ad_LogisticRegression.ipynb)
 ## **Overview**
 Logistic Regression with a fake advertising dataset to predict whether or not a particular user clicked on an Ad online. 
 
