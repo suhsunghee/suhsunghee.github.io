@@ -42,5 +42,5 @@ First data has been visualized to see FICO score and loan status as well as the 
 From this excercise, random forest had 95% less of Type 1 error ( false positive) value than that of decision tree
 
 ## **Skills needed**
-
+Python-get_dummies, pandas, Seaborn, sklearn-randomforest,decisiontree,
 
