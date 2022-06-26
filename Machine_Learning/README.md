@@ -34,8 +34,12 @@ Test result is then expressed in confusion matrix as well as a classification re
 Python, Pandas, Seaborn, sklearn- KNeighborClassifier, StandardScaler 
 
 
-## [**Random Forest Project work in progress**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Projects/Decision_Trees_and_Random_Forest.ipynb)
+## [**Loan estimate - Random Forest Project**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Projects/Decision_Trees_and_Random_Forest.ipynb)
 ### **Overview**
+Data from LendingClub.com during 2007-2010 is used to predict whether or not the borrower paid back their loan in full.
+Decision tree and random forest are both ran on loan estimate data.
+First data has been visualized to see FICO score and loan status as well as the purpose of the loan & FICO score relationship.
+From this excercise, random forest had 95% less of Type 1 error ( false positive) value than that of decision tree
 
 ## **Skills needed**
 
