@@ -34,7 +34,7 @@ Test result is then expressed in confusion matrix as well as a classification re
 Python, Pandas, Seaborn, sklearn- KNeighborClassifier, StandardScaler 
 
 
-## [**Loan estimate - Random Forest Project**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Projects/Decision_Trees_and_Random_Forest.ipynb)
+## [**Loan estimate - Random Forest Project**](https://github.com/suhsunghee/suhsunghee.github.io/blob/main/Machine_Learning/Projects/Loan_Estimate_DecisionTree_RandomForest.ipynb)
 ### **Overview**
 Data from LendingClub.com during 2007-2010 is used to predict whether or not the borrower paid back their loan in full.
 Decision tree and random forest are both ran on loan estimate data.
